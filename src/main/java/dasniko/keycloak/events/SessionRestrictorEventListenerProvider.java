@@ -30,6 +30,7 @@ public class SessionRestrictorEventListenerProvider implements EventListenerProv
                 // this is HIGHLANDER MODE - there must only be one!
                 if (!userSession.getId().equals(event.getSessionId())) {
                     keycloakSession.sessions().removeUserSession(realm, userSession);
+					event.setError("older sessions removed -> multiple sessions found");
                 }
             });
         }

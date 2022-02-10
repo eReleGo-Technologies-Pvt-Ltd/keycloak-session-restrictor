@@ -3,7 +3,7 @@
 
   <groupId>dasniko.keycloak</groupId>
   <artifactId>keycloak-session-restrictor</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
 
   <properties>
