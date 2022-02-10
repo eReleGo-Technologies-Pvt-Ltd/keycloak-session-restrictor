@@ -21,7 +21,7 @@ public class SessionRestrictorEventListenerProvider implements EventListenerProv
 
     @Override
     public void onEvent(Event event) {
-        if (EventType.LOGIN.equals(event.getType())) {
+        if (EventType.LOGIN.equals(event.getType()) && !event.getDetails().containsKey("response_type")) {
             RealmModel realm = keycloakSession.getContext().getRealm();
             InMemoryUserAdapter user = new InMemoryUserAdapter(keycloakSession, realm, event.getUserId());
 

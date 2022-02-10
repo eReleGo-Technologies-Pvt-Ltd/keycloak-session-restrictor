@@ -11,5 +11,5 @@ A demo event listener for Keycloak, allowing only the last session to survive, i
 mvn clean package
 ```
 
- - copy "\target\*.jar" file to keycloak standalone/deployments folder
+ - copy "\\target\\*.jar" file to keycloak standalone\deployments folder
  
