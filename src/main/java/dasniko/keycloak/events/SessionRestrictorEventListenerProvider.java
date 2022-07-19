@@ -22,17 +22,19 @@ public class SessionRestrictorEventListenerProvider implements EventListenerProv
     @Override
     public void onEvent(Event event) {
         if (EventType.LOGIN.equals(event.getType()) && !event.getDetails().containsKey("response_type")) {
-            RealmModel realm = keycloakSession.getContext().getRealm();
-            InMemoryUserAdapter user = new InMemoryUserAdapter(keycloakSession, realm, event.getUserId());
-
-            keycloakSession.sessions().getUserSessions(realm, user).forEach(userSession -> {
-                // remove all existing user sessions but the current one (last one wins)
-                // this is HIGHLANDER MODE - there must only be one!
-                if (!userSession.getId().equals(event.getSessionId())) {
-                    keycloakSession.sessions().removeUserSession(realm, userSession);
-					event.setError("older sessions removed -> multiple sessions found");
-                }
-            });
+			String clientId = keycloakSession.getContext().getClient().getClientId();
+			if (!clientId.equals("admin-cli")) {
+				RealmModel realm = keycloakSession.getContext().getRealm();
+				InMemoryUserAdapter user = new InMemoryUserAdapter(keycloakSession, realm, event.getUserId());
+				keycloakSession.sessions().getUserSessions(realm, user).forEach(userSession -> {
+					// remove all existing user sessions but the current one (last one wins)
+					// this is HIGHLANDER MODE - there must only be one!
+					if (!userSession.getId().equals(event.getSessionId())) {
+						keycloakSession.sessions().removeUserSession(realm, userSession);
+						event.setError("older sessions removed -> multiple sessions found -> clientId:" + clientId);
+					}
+				});
+			}
         }
     }
 
