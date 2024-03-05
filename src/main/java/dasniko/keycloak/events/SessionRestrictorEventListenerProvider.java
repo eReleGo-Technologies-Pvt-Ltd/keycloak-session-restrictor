@@ -26,7 +26,7 @@ public class SessionRestrictorEventListenerProvider implements EventListenerProv
 			if (!clientId.equals("admin-cli")) {
 				RealmModel realm = keycloakSession.getContext().getRealm();
 				InMemoryUserAdapter user = new InMemoryUserAdapter(keycloakSession, realm, event.getUserId());
-				keycloakSession.sessions().getUserSessions(realm, user).forEach(userSession -> {
+				keycloakSession.sessions().getUserSessionsStream(realm, user).forEach(userSession -> {
 					// remove all existing user sessions but the current one (last one wins)
 					// this is HIGHLANDER MODE - there must only be one!
 					if (!userSession.getId().equals(event.getSessionId())) {

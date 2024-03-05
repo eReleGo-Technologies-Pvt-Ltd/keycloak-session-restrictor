@@ -10,7 +10,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <keycloak.version>12.0.1</keycloak.version>
+    <keycloak.version>21.0.1</keycloak.version>
   </properties>
 
   <dependencyManagement>
@@ -38,6 +38,10 @@
       <groupId>org.keycloak</groupId>
       <artifactId>keycloak-server-spi-private</artifactId>
     </dependency>
+	<dependency>
+	    <groupId>org.keycloak</groupId>
+	    <artifactId>keycloak-model-legacy-private</artifactId>
+	</dependency>
   </dependencies>
 
 </project>
